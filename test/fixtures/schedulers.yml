@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  task_id: 1
+  start_at: 2012-02-24 10:06:42
+  is_started: false
+
+two:
+  task_id: 1
+  start_at: 2012-02-24 10:06:42
+  is_started: false

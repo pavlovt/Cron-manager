@@ -1,0 +1,22 @@
+<div class="row">
+  <%= simple_form_for(@task) do |f| %>
+    <%= f.error_notification %>
+
+      <div class="span6">
+        <%= f.association :project, :collection => @projects, :prompt => "Select project", :input_html => { :class => 'chosenjs' }, :required => true %>
+        <%= f.input :name, :required => true %>
+        <%= f.input :command, :required => true %>
+        <%= f.input :is_active, :input_html => {  } %>
+      </div>
+      <div class="span6">
+        <%= f.input :start_at, :as => :string, :input_html => { :class => 'datetimepicker', :value => @task.start_at_safe } %>
+        <%= f.input :end_at, :as => :string, :input_html => { :class => 'datetimepicker', :value => @task.end_at_safe } %>
+        <%= f.input :cron_time, :required => true %>
+        <%= f.input :timeout, :as => :string, :input_html => { :class => 'timepicker', :value => @task.timeout_safe } %>
+      </div>
+
+    <div class="span12">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>

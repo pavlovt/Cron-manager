@@ -1,0 +1,28 @@
+<h2>Projects</h2>
+
+<%= link_to 'New Project', new_project_path, :class => 'go_right btn btn-mini' %>
+<br /><br />
+
+<table class="table table-striped">
+  <colgroup>
+    <col style="width:10%" />
+    <col style="width:70%" />
+    <col style="width:20%" />
+  </colgroup>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.id %></td>
+    <td><%= link_to project.name, project %></td>
+    <td>
+      <%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-small' %>
+      <%= link_to 'Delete', project, :class => 'btn btn-small', confirm: 'Are you sure?', method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>

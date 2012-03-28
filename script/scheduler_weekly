@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+# weekly scheduler update for tasks which are active and scheduled in the future
+Base = File.dirname(__FILE__).split('/').reject{ |x| x == 'script' }.join('/')
+require "#{Base}/script/init.rb"
+include ApplicationHelper
+
+for project in Project.where('is_active = 1')
+  for task in project.tasks.where('end_at >= NOW() AND is_active = 1')
+    
+    task.schedule
+
+  end
+end
+
+puts 'Done.'

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  task_id: 1
+  result: MyString
+  is_timeout: false
+  is_error: false
+
+two:
+  task_id: 1
+  result: MyString
+  is_timeout: false
+  is_error: false

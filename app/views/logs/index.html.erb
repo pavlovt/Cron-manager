@@ -1,0 +1,31 @@
+<h1>Logs<%= @task_name %></h1><br />
+
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th>Task</th>
+    <th>Result</th>
+    <th>Timeout?</th>
+    <th>Error?</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @logs.each do |log| %>
+  <tr>
+    <td><%= log.id %></td>
+    <td><%= log.task.name %></td>
+    <td><%= log.result %></td>
+    <td><%= log.is_timeout %></td>
+    <td><%= log.is_error %></td>
+    <td><%= link_to 'Show', log %></td>
+    <td><%= link_to 'Edit', edit_log_path(log) %></td>
+    <td><%= link_to 'Destroy', log, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Log', new_log_path %>

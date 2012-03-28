@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+# weekly scheduler update for tasks which are active and scheduled in the future
+Base = File.dirname(__FILE__).split('/').reject{ |x| x == 'script' }.join('/')
+require "#{Base}/script/init.rb"
+include ApplicationHelper
+
+begin
+
+  for scheduler in Scheduler.where("start_at = '#{Time.now.strftime("%Y-%m-%d %H:%M:00")}' AND is_started = 0")
+    # if there is no end date or it is greater than now and the project and task is active then ececute it
+    task = scheduler.task
+    puts task
+    if (!defined? task.end_at or task.end_at >= Time.now) and task.is_active and task.project.is_active then
+      # run every task in separate background process
+      pid = Process.fork do
+        # init db in every fork
+        dbconfig = YAML::load(File.open("#{Base}/config/database.yml"))
+        ActiveRecord::Base.establish_connection(dbconfig['development'])
+        scheduler.is_started = true
+        scheduler.save
+        task.run
+        # p = Project.find 2
+        # p.is_active = false
+        # p.save
+      end
+
+      Process.detach(pid)
+      
+    end
+  end
+
+rescue Exception => e  
+  send_mail "An error occured while running the job with ", e.message + ' backtrace: ', e.backtrace.inspect  
+end 
+
+
+puts 'Done.'

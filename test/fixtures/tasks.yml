@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project_id: 1
+  name: MyString
+  start_at: 2012-03-10 19:48:58
+  end_at: 2012-03-10 19:48:58
+  cron_time: MyString
+  timeout: 2012-03-10 19:48:58
+  is_active: false
+
+two:
+  project_id: 1
+  name: MyString
+  start_at: 2012-03-10 19:48:58
+  end_at: 2012-03-10 19:48:58
+  cron_time: MyString
+  timeout: 2012-03-10 19:48:58
+  is_active: false

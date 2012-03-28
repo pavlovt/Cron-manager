@@ -1,0 +1,37 @@
+<h2>Tasks</h2>
+
+   <%= link_to 'New Task', new_task_path, :class => 'go_right btn btn-mini' %>
+   <br /><br />
+   
+    <table class="table table-striped">
+    <colgroup>
+       <col style="width:10%" />
+       <col style="width:30%" />
+       <col style="width:45%" />
+       <col style="width:15%" />
+     </colgroup>
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Task</th>
+            <th>Log</th>
+            <th>&nbsp;</th>
+         </tr>
+      </thead>
+      <tbody>
+      <% for task in @tasks %>
+         <% cclass = '' %>
+         <% cclass = 'alert err' if defined? task.logs.last.is_error and task.logs.last.is_error %>
+         <% cclass = 'alert warn' if defined? task.logs.last.is_timeout and task.logs.last.is_timeout %>
+         <tr class="<%=cclass%>">
+            <td><%=task.id%></td>
+            <td><%= link_to task.name, task %></td>
+            <td><%= link_to task.logs.last.result[0..100]+'...', task.logs.last if defined? task.logs.last.result %></td>
+            <td>
+               <%=link_to "Edit", edit_task_path(task), :class => 'btn btn-small' %>
+               <%= link_to 'Delete', task, :class => 'btn btn-small', confirm: 'Are you sure?', method: :delete %>
+            </td>
+         </tr>
+      <% end %>
+      </tbody>
+   </table>

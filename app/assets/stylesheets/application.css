@@ -1,0 +1,27 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require twitter/bootstrap
+ *= require chosen
+ *= require jquery_ui/dark_hive/jquery-ui-1.8.18.dark-hive
+ *= require jquery-ui-timepicker-addon
+ *= require_tree .
+*/
+
+.button_to, .button_to div, .button_to input { display: inline-block; margin: 0; }
+
+.clear { clear: both; }
+
+.go_right { float: right }
+
+/* background color for tables */
+.warn td { background-color: #FCF8E3 !important; }
+.err td { background-color: #F2DEDE !important; }

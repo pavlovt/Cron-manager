@@ -1,0 +1,29 @@
+<h1>Schedulers<%= @task_name %></h1>
+
+<div style="float:right; margin-bottom: 10px;">
+  <%= button_to 'New Scheduler', new_scheduler_path, class: "btn" %>
+</div>
+
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th>Task</th>
+    <th>Start at</th>
+    <th>Is started</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @schedulers.each do |scheduler| %>
+  <tr>
+    <td><%= scheduler.id %></td>
+    <td><%= scheduler.task.name %></td>
+    <td><%= scheduler.start_at %></td>
+    <td><%= scheduler.is_started %></td>
+    <td><%= link_to 'Show', scheduler %></td>
+    <td><%= link_to 'Edit', edit_scheduler_path(scheduler) %></td>
+    <td><%= link_to 'Destroy', scheduler, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

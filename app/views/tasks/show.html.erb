@@ -1,0 +1,120 @@
+<h3><%= @task.name %></h3>
+
+<%= link_to 'Edit task', edit_task_path(@task), :class => 'go_right btn btn-mini' %>
+<%= link_to 'Back', tasks_path, :class => 'go_right btn btn-mini', :style => 'margin-right: 10px' %><br /><br class="clear" />
+
+<div class="row">
+  <div class="span6">
+    <p>
+      <b>Project:</b>
+      <%= @task.project.name %>
+    </p>
+
+    <p>
+      <b>Command:</b>
+      <%= @task.command %>
+    </p>
+
+    <p>
+      <b>Is active:</b>
+      <%= @task.is_active %>
+    </p>
+
+  </div>
+  <div class="span6">
+    <p>
+      <b>Start at:</b>
+      <%= @task.start_at_safe %>
+    </p>
+
+    <p>
+      <b>End at:</b>
+      <%= @task.end_at_safe %>
+    </p>
+
+    <p>
+      <b>Cron time:</b>
+      <%= @task.cron_time %>
+    </p>
+
+    <p>
+      <b>Timeout:</b>
+      <%= @task.timeout_safe %>
+    </p>
+
+
+  </div>
+
+</div>
+
+<br />
+
+<% if !@task.logs.blank? %>
+   <%= link_to 'Show all logs', "#{logs_url}?task_id=#{@task.id}", :class => 'go_right btn btn-mini' %>
+   <h3>Logs</h3><br />
+
+    <table class="table table-striped">
+    <colgroup>
+       <col style="width:10%" />
+       <col style="width:70%" />
+       <col style="width:20%" />
+     </colgroup>
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Created at</th>
+         </tr>
+      </thead>
+      <tbody>
+      <% for log in @task.logs.order('id DESC').limit(10) %>
+         <% cclass = '' %>
+         <% cclass = 'alert err' if defined? log.is_error and log.is_error %>
+         <% cclass = 'alert warn' if defined? log.is_timeout and log.is_timeout %>
+         <tr class="<%=cclass%>">
+            <td><%= log.id %></td>
+            <td><%= link_to log.result[0..100], log %></td>
+            <td><%= log.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+         </tr>
+      <% end %>
+      </tbody>
+   </table>
+<% else %>
+  <p>This task has no logs.</p>
+<% end %>
+
+<% if !@task.logs.blank? %>
+   <%= link_to 'Show all schedulers', "#{schedulers_url}?task_id=#{@task.id}", :class => 'go_right btn btn-mini' %>
+   <h3>Schedule for this week</h3><br />
+
+    <table class="table table-striped">
+    <colgroup>
+       <col style="width:10%" />
+       <col style="width:70%" />
+       <col style="width:20%" />
+     </colgroup>
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Started at</th>
+            <th>Is started</th>
+         </tr>
+      </thead>
+      <tbody>
+      <% for sched in @task.schedulers.where("start_at BETWEEN '#{Time.now.beginning_of_week.strftime("%Y-%m-%d %H:%M:%S")}' AND '#{Time.now.end_of_week.strftime("%Y-%m-%d %H:%M:%S")}'").order('id DESC').limit(10) %>
+         <tr>
+            <td><%= sched.id %></td>
+            <td><%= link_to sched.start_at.strftime("%d.%m.%Y %H:%M"), sched %></td>
+            <td><%= sched.is_started ? 'Yes' : 'No' %></td>
+         </tr>
+      <% end %>
+      </tbody>
+   </table>
+<% else %>
+  <p>This task has no schedulers for this week.</p>
+<% end %>
+
+
+<br /><br />
+<%= link_to 'Edit task', edit_task_path(@task), :class => 'go_right btn btn-mini' %>
+<%= link_to 'Back', tasks_path, :class => 'go_right btn btn-mini', :style => 'margin-right: 10px' %>

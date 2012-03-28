@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Task:</b>
+  <%= @log.task_id %>
+</p>
+
+<p>
+  <b>Result:</b>
+  <pre><%= pp JSON.parse(@log.result) rescue @log.result %></pre>
+</p>
+
+<p>
+  <b>Is timeout:</b>
+  <%= @log.is_timeout %>
+</p>
+
+<p>
+  <b>Is error:</b>
+  <%= @log.is_error %>
+</p>
+
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>
